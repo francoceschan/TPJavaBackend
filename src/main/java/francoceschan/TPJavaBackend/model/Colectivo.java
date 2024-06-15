@@ -9,8 +9,7 @@ import lombok.Data;
 public class Colectivo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idColectivo;
+    private String patente;
 
     private Integer capacidad;
 }

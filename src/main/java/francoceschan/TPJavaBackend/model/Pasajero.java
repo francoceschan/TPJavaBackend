@@ -6,6 +6,5 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "pasajeros")
 public class Pasajero extends Usuario{
 }

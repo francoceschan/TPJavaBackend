@@ -6,6 +6,5 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "administrativos")
 public class Administrativo extends Usuario{
 }
