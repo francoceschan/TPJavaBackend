@@ -1,8 +1,7 @@
 package francoceschan.TPJavaBackend.config;
 
-import francoceschan.TPJavaBackend.service.UserDetailsServiceImpl;
-import francoceschan.TPJavaBackend.service.usuario.UsuarioService;
-import francoceschan.TPJavaBackend.service.usuario.UsuarioServiceImpl;
+import francoceschan.TPJavaBackend.config.filter.JwtTokenValidator;
+import francoceschan.TPJavaBackend.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,13 +15,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -30,7 +26,10 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Autowired
-    AuthenticationConfiguration authenticationConfiguration;
+    private AuthenticationConfiguration authenticationConfiguration;
+
+    @Autowired
+    private JwtUtils jwtUtils;
 
     @Bean
     public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception {
@@ -40,11 +39,15 @@ public class SecurityConfig {
                 //No mantiene la sesion, de esto se encarga el token, cuando vence el token se cierra la sesion
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(http -> {
+                    http.requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
                     http.requestMatchers(HttpMethod.GET, "/colectivo/get").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/auth/token").hasAnyRole("ADMINISTRATIVO", "DEVELOPER");
+                    http.requestMatchers(HttpMethod.GET, "/colectivo/getPermiso").hasAnyRole("ADMINISTRATIVO", "DEVELOPER");
                     //http.requestMatchers(HttpMethod.GET, "/colectivo/guardar").hasAuthority("CREATE");
 
                     http.anyRequest().authenticated();
                 })
+                .addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
                 .build();
     }
 

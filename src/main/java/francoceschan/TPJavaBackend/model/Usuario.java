@@ -1,10 +1,10 @@
 package francoceschan.TPJavaBackend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Data
@@ -24,5 +24,8 @@ public abstract class Usuario {
     private String mail;
 
     private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Rol> roles = new HashSet<>();
 
 }
