@@ -57,6 +57,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(http -> {
                     http.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
                     http.requestMatchers(HttpMethod.GET, "/colectivo/get").permitAll();
+                    http.requestMatchers(HttpMethod.POST, "/colectivo/**").hasAnyRole("ADMINISTRATIVO");
                     http.requestMatchers(HttpMethod.GET, "/auth/token").hasAnyRole("ADMINISTRATIVO", "DEVELOPER");
                     http.requestMatchers(HttpMethod.GET, "/colectivo/getPermiso").hasAnyRole("ADMINISTRATIVO", "DEVELOPER");
                     //http.requestMatchers(HttpMethod.GET, "/colectivo/guardar").hasAuthority("CREATE");

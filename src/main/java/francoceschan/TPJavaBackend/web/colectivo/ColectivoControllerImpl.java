@@ -12,10 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping("/colectivo")
@@ -23,7 +20,7 @@ import java.util.Set;
 //@PreAuthorize("hasAuthority('CREATE')")
 public class ColectivoControllerImpl implements ColectivoController {
 
-    private ColectivoService colectivoService;
+    private final ColectivoService colectivoService;
 
     private final UsuarioService usuarioService;
 
@@ -37,17 +34,30 @@ public class ColectivoControllerImpl implements ColectivoController {
 
     @Override
     @PostMapping("/guardar")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     //@PreAuthorize("hasAuthority('CREATE')")
-    public Colectivo guardarColectivo(Colectivo colectivo){
+    //@PreAuthorize("hasAnyRole('ROLE_ADMINISTRATIVO')")
+    public Colectivo guardarColectivo(@RequestBody Colectivo colectivo){
         return colectivoService.guardarColectivo(colectivo);
     }
 
-    @GetMapping("/get")
+    @GetMapping("/getAll")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Colectivo> getAll(){
+        return colectivoService.getAll();
+    }
+
+    @DeleteMapping("deleteById/{patente}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteById(@PathVariable("patente") String patente){
+        colectivoService.deleteById(patente);
+    }
+
+/*    @GetMapping("/get")
     @ResponseStatus(HttpStatus.OK)
     public String get(){
 
-/*        Permiso permisoCREATE = new Permiso();
+*//*        Permiso permisoCREATE = new Permiso();
         permisoCREATE.setNombre("CREATE");
 
         Permiso permisoREAD = new Permiso();
@@ -85,19 +95,19 @@ public class ColectivoControllerImpl implements ColectivoController {
 
         administrativoService.crearAdministrativo(usuario);
         System.out.println(usuarioService.findUsuarioByNroDocumento("39504981"));
-*/
+*//*
         Optional<Usuario> usuario = usuarioDao.findUsuarioByMail("francoceschan@gmail.com");
 
         System.out.println(usuario.get().getRoles());
 
         return "hola";
-    }
+    }*/
 
-    @GetMapping("/getPermiso")
+/*    @GetMapping("/getPermiso")
     //@PreAuthorize("hasAuthority('READ')")
     public String getPermiso(){
         Optional<Usuario> usuario = usuarioDao.findUsuarioByMail("francoceschan@gmail.com");
 
         return "hola permiso";
-    }
+    }*/
 }
