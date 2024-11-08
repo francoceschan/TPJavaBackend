@@ -29,6 +29,13 @@ public class Viaje {
     */
     private Float precio;
 
+    @Lob
+    @Column(name = "imagen", columnDefinition = "LONGBLOB")
+    private byte[] imagen;
+
+    @Transient  // Esto evita que se mapee en la base de datos
+    private String imagenBase64;
+
     @ManyToOne
     @JoinColumn(name = "idColectivo")
     private Colectivo colectivo;

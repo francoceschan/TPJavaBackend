@@ -56,7 +56,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(http -> {
                     http.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
-                    http.requestMatchers(HttpMethod.GET, "/colectivo/get").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/viaje/getViajesDisponibles").permitAll();
+                    //http.requestMatchers(HttpMethod.GET, "/colectivo/get").permitAll();
                     http.requestMatchers(HttpMethod.POST, "/colectivo/**").hasAnyRole("ADMINISTRATIVO");
                     http.requestMatchers(HttpMethod.GET, "/auth/token").hasAnyRole("ADMINISTRATIVO", "DEVELOPER");
                     http.requestMatchers(HttpMethod.GET, "/colectivo/getPermiso").hasAnyRole("ADMINISTRATIVO", "DEVELOPER");

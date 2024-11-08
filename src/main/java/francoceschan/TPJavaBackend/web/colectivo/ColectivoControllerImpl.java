@@ -3,16 +3,16 @@ package francoceschan.TPJavaBackend.web.colectivo;
 import francoceschan.TPJavaBackend.dao.PermisoDao;
 import francoceschan.TPJavaBackend.dao.RolDao;
 import francoceschan.TPJavaBackend.dao.UsuarioDao;
-import francoceschan.TPJavaBackend.model.*;
+import francoceschan.TPJavaBackend.model.Colectivo;
 import francoceschan.TPJavaBackend.service.administrativo.AdministrativoService;
 import francoceschan.TPJavaBackend.service.colectivo.ColectivoService;
 import francoceschan.TPJavaBackend.service.usuario.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/colectivo")
@@ -44,6 +44,12 @@ public class ColectivoControllerImpl implements ColectivoController {
     @GetMapping("/getAll")
     @ResponseStatus(HttpStatus.OK)
     public List<Colectivo> getAll(){
+        return colectivoService.getAll();
+    }
+
+    @GetMapping("/getColectivosDisponibles/{fechaInicio}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Colectivo> getColectivosDisponibles(@PathVariable("fechaInicio") LocalDateTime fechaInicio){
         return colectivoService.getAll();
     }
 
