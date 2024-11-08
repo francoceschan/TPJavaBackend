@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/colectivo")
 @RequiredArgsConstructor
 //@PreAuthorize("hasAuthority('CREATE')")
-public class ColectivoControllerImpl implements ColectivoController {
+public class ColectivoControllerImpl implements ColectivoController  {
 
     private final ColectivoService colectivoService;
 
@@ -55,7 +55,8 @@ public class ColectivoControllerImpl implements ColectivoController {
 
     @DeleteMapping("deleteById/{patente}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteById(@PathVariable("patente") String patente){
+    public void deleteById(@PathVariable("patente") String patente)  throws RuntimeException
+    {
         colectivoService.deleteById(patente);
     }
 

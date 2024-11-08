@@ -4,5 +4,5 @@ import francoceschan.TPJavaBackend.model.Colectivo;
 
 public interface ColectivoController {
 
-    Colectivo guardarColectivo(Colectivo colectivo);
+    Colectivo guardarColectivo(Colectivo colectivo)  throws RuntimeException;
 }

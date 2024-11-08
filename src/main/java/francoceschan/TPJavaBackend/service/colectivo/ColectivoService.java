@@ -10,5 +10,5 @@ public interface ColectivoService {
 
     List<Colectivo> getAll();
 
-    void deleteById(String patente);
+    void deleteById(String patente)  throws RuntimeException;
 }
