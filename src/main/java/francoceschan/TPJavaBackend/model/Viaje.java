@@ -18,15 +18,15 @@ public class Viaje {
     private String descripcion;
 
     private LocalDateTime fechaHora;
-    /*
-    @ManyToOne
-    @JoinColumn(name = "idCiudad")
-    private Ciudad origen;
 
     @ManyToOne
-    @JoinColumn(name = "idCiudad")
-    private Ciudad destino;
-    */
+    @JoinColumn(name = "idCiudadOrigen")
+    private Ciudad ciudadOrigen;
+
+    @ManyToOne
+    @JoinColumn(name = "idCiudadDestino")
+    private Ciudad ciudadDestino;
+
     private Float precio;
 
     @Lob

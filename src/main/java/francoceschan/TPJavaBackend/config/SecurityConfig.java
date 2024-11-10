@@ -55,16 +55,29 @@ public class SecurityConfig {
                 //No mantiene la sesion, de esto se encarga el token, cuando vence el token se cierra la sesion
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(http -> {
-                    http.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
-                    http.requestMatchers(HttpMethod.GET, "/viaje/getViajesDisponibles").permitAll();
-                    //http.requestMatchers(HttpMethod.GET, "/colectivo/get").permitAll();
-                    http.requestMatchers(HttpMethod.POST, "/colectivo/**").hasAnyRole("ADMINISTRATIVO");
-                    http.requestMatchers(HttpMethod.DELETE, "/colectivo/**").hasAnyRole("ADMINISTRATIVO");
+
+                    // AUTH
                     http.requestMatchers(HttpMethod.GET, "/auth/token").hasAnyRole("ADMINISTRATIVO", "DEVELOPER");
+                    http.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
+
+                    // VIAJE
+                    http.requestMatchers(HttpMethod.GET, "/viaje/getViajesDisponibles").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/viaje/getAll").hasAnyRole("ADMINISTRATIVO");
+
+                    // CIUDAD
+                    http.requestMatchers(HttpMethod.POST, "/ciudad/**").hasAnyRole("ADMINISTRATIVO");
+                    http.requestMatchers(HttpMethod.GET, "/ciudad/getAll").permitAll();
+
+                    // COLECTIVO
+                    http.requestMatchers(HttpMethod.POST, "/colectivo/**").hasAnyRole("ADMINISTRATIVO");
+                    http.requestMatchers(HttpMethod.GET, "/colectivo/**").hasAnyRole("ADMINISTRATIVO");
+                    http.requestMatchers(HttpMethod.DELETE, "/colectivo/**").hasAnyRole("ADMINISTRATIVO");
+
+
                     http.requestMatchers(HttpMethod.GET, "/colectivo/getPermiso").hasAnyRole("ADMINISTRATIVO", "DEVELOPER");
                     //http.requestMatchers(HttpMethod.GET, "/colectivo/guardar").hasAuthority("CREATE");
 
-                    http.anyRequest().authenticated();
+                    //http.anyRequest().authenticated();
                 })
                 .addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
                 .build();
