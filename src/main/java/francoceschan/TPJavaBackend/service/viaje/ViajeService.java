@@ -1,7 +1,7 @@
 package francoceschan.TPJavaBackend.service.viaje;
 
-import francoceschan.TPJavaBackend.model.Usuario;
 import francoceschan.TPJavaBackend.model.Viaje;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -17,5 +17,7 @@ public interface ViajeService {
     List<Viaje> getViajesDisponibles();
 
     void deleteById(Long idViaje);
+
+    List<Viaje> buscarViajes(Optional<Float> precioMinimo, Optional<Float> precioMaximo, Optional<Long> ciudadOrigenId, Optional<Long> ciudadDestinoId);
 
 }

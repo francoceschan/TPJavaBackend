@@ -62,7 +62,11 @@ public class SecurityConfig {
 
                     // VIAJE
                     http.requestMatchers(HttpMethod.GET, "/viaje/getViajesDisponibles").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/viaje/busqueda").permitAll();
+                    http.requestMatchers(HttpMethod.POST, "/viaje/guardar").hasAnyRole("ADMINISTRATIVO");
                     http.requestMatchers(HttpMethod.GET, "/viaje/getAll").hasAnyRole("ADMINISTRATIVO");
+                    http.requestMatchers(HttpMethod.DELETE, "/viaje/**").hasAnyRole("ADMINISTRATIVO");
+
 
                     // CIUDAD
                     http.requestMatchers(HttpMethod.POST, "/ciudad/**").hasAnyRole("ADMINISTRATIVO");

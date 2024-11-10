@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/viaje")
@@ -71,6 +70,18 @@ public class ViajeControllerImpl implements ViajeController{
     @ResponseStatus(HttpStatus.OK)
     public List<Viaje> getAll() {
         return viajeService.getAll();
+    }
+
+    @Override
+    @GetMapping("/busqueda")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Viaje> busqueda(
+            @RequestParam("preciominimo") Optional<Float> precioMinimo,
+            @RequestParam("preciomaximo") Optional<Float> precioMaximo,
+            @RequestParam("ciudadorigenid") Optional<Long> ciudadOrigenId,
+            @RequestParam("ciudaddestinoid") Optional<Long> ciudadDestinoId
+    ) {
+        return viajeService.buscarViajes(precioMinimo, precioMaximo, ciudadOrigenId, ciudadDestinoId);
     }
 
     @Override
