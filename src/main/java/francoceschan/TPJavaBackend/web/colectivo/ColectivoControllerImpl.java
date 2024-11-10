@@ -35,24 +35,25 @@ public class ColectivoControllerImpl implements ColectivoController  {
     @Override
     @PostMapping("/guardar")
     @ResponseStatus(HttpStatus.CREATED)
-    //@PreAuthorize("hasAuthority('CREATE')")
-    //@PreAuthorize("hasAnyRole('ROLE_ADMINISTRATIVO')")
     public Colectivo guardarColectivo(@RequestBody Colectivo colectivo){
         return colectivoService.guardarColectivo(colectivo);
     }
 
+    @Override
     @GetMapping("/getAll")
     @ResponseStatus(HttpStatus.OK)
     public List<Colectivo> getAll(){
         return colectivoService.getAll();
     }
 
-    @GetMapping("/getColectivosDisponibles/{fechaInicio}")
+    @Override
+    @GetMapping("/getColectivosDisponibles/{fechaInicio}/{fechaFin}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Colectivo> getColectivosDisponibles(@PathVariable("fechaInicio") LocalDateTime fechaInicio){
-        return colectivoService.getAll();
+    public List<Colectivo> getColectivosDisponibles(@PathVariable("fechaInicio") LocalDateTime fechaInicio, @PathVariable("fechaFin") LocalDateTime fechaFin){
+        return colectivoService.findColectivosDisponiblesEntreFechas(fechaInicio, fechaFin);
     }
 
+    @Override
     @DeleteMapping("deleteById/{patente}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteById(@PathVariable("patente") String patente)  throws RuntimeException
@@ -110,11 +111,4 @@ public class ColectivoControllerImpl implements ColectivoController  {
         return "hola";
     }*/
 
-/*    @GetMapping("/getPermiso")
-    //@PreAuthorize("hasAuthority('READ')")
-    public String getPermiso(){
-        Optional<Usuario> usuario = usuarioDao.findUsuarioByMail("francoceschan@gmail.com");
-
-        return "hola permiso";
-    }*/
 }

@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -24,6 +25,11 @@ public class ColectivoServiceImpl implements ColectivoService{
     @Override
     public List<Colectivo> getAll(){
         return colectivoDao.findAll();
+    }
+
+    @Override
+    public List<Colectivo> findColectivosDisponiblesEntreFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin){
+        return colectivoDao.findColectivosDisponiblesEntreFechas(fechaInicio, fechaFin);
     }
 
     @Override
