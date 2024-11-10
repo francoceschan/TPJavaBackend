@@ -17,7 +17,9 @@ public class Viaje {
 
     private String descripcion;
 
-    private LocalDateTime fechaHora;
+    private LocalDateTime fechaHoraInicio;
+
+    private LocalDateTime fechaHoraFin;
 
     @ManyToOne
     @JoinColumn(name = "idCiudadOrigen")
