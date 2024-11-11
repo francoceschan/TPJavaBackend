@@ -19,15 +19,6 @@ public class ViajeControllerImpl implements ViajeController{
 
     private final ViajeService viajeService;
 
-/*    @Override
-    @PostMapping("/guardar")
-    @ResponseStatus(HttpStatus.CREATED)
-    //@PreAuthorize("hasAuthority('CREATE')")
-    //@PreAuthorize("hasAnyRole('ROLE_ADMINISTRATIVO')")
-    public Viaje guardarViaje(@RequestBody Viaje viaje){
-        return viajeService.guardarViaje(viaje);
-    }*/
-
     @Override
     @PostMapping("/guardar")
     @ResponseStatus(HttpStatus.CREATED)
@@ -40,30 +31,6 @@ public class ViajeControllerImpl implements ViajeController{
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al guardar el viaje");
         }
     }
-
-/*    @Override
-    @GetMapping("/getAll")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Viaje> getAll(){
-        return viajeService.getAll();
-    }*/
-
-/*    @PostMapping("/obtener/{id}")
-    public ResponseEntity<?> obtenerViaje(@PathVariable Long id) {
-        Optional<Viaje> viajeOpt = viajeService.obtenerViaje(id);
-        if (viajeOpt.isPresent()) {
-            Viaje viaje = viajeOpt.get();
-
-            // Convierte el byte[] de la imagen a Base64
-            if (viaje.getImagen() != null) {
-                String imagenBase64 = Base64.getEncoder().encodeToString(viaje.getImagen());
-                viaje.setImagenBase64(imagenBase64);
-            }
-
-            return ResponseEntity.ok(viaje);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Viaje no encontrado");
-    }*/
 
     @Override
     @GetMapping("/getAll")

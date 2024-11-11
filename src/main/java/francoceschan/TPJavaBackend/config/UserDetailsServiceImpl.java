@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         System.out.println("Roles encontrados: " + usuario.getRoles());
 
         List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
-        System.out.println("hola");
+
         usuario.getRoles()
                 .forEach(role -> authorityList.add(new SimpleGrantedAuthority("ROLE_".concat(role.getNombre()))));
 
@@ -81,7 +82,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw  new BadCredentialsException("Usuario y/o contraseña invalido.");
         }
 
-        if(!passwordEncoder.matches(password, userDetails.getPassword())){
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+        if(!bCryptPasswordEncoder.matches(password, userDetails.getPassword())){
             throw new BadCredentialsException("Usuario y/o contraseña invalido.");
         }
 
