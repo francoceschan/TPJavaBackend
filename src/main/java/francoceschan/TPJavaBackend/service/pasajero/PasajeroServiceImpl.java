@@ -20,4 +20,9 @@ public class PasajeroServiceImpl implements PasajeroService{
 
         return pasajeroDao.save(pasajero);
     }
+
+    @Override
+    public Pasajero findPasajeroByMail(String mail){
+        return pasajeroDao.findPasajeroByMail(mail);
+    }
 }

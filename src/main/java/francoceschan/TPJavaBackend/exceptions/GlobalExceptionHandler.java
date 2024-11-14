@@ -2,20 +2,24 @@ package francoceschan.TPJavaBackend.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler(ColectivoAsignadoException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public Map<String, String> handleDataIntegrityViolationException(RuntimeException ex) {
-        Map<String, String> errorResponse = new HashMap<>();
-        errorResponse.put("message", "El colectivo no se puede eliminar porque está asignado a uno o más viajes");
-        return errorResponse;
+    @ResponseBody
+    public String handleColectivoAsignadoException(ColectivoAsignadoException ex) {
+        return ex.getMessage();
+    }
+
+    @ExceptionHandler(BoletoException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ResponseBody
+    public String handleBoletoException(BoletoException ex) {
+        return ex.getMessage();
     }
 }

@@ -1,5 +1,6 @@
 package francoceschan.TPJavaBackend.service.colectivo;
 
+import francoceschan.TPJavaBackend.exceptions.ColectivoAsignadoException;
 import francoceschan.TPJavaBackend.model.Colectivo;
 
 import java.time.LocalDateTime;
@@ -13,5 +14,5 @@ public interface ColectivoService {
 
     List<Colectivo> findColectivosDisponiblesEntreFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin);
 
-    void deleteById(String patente)  throws RuntimeException;
+    void deleteById(String patente) throws ColectivoAsignadoException;
 }

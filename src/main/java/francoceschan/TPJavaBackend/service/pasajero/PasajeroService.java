@@ -6,4 +6,6 @@ public interface PasajeroService {
 
     Pasajero crearPasajero(Pasajero pasajero);
 
+    Pasajero findPasajeroByMail(String mail);
+
 }

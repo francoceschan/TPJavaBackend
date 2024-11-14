@@ -2,7 +2,6 @@ package francoceschan.TPJavaBackend.service.administrativo;
 
 import francoceschan.TPJavaBackend.dao.AdministrativoDao;
 import francoceschan.TPJavaBackend.model.Administrativo;
-import francoceschan.TPJavaBackend.model.Usuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,5 +1,6 @@
 package francoceschan.TPJavaBackend.web.colectivo;
 
+import francoceschan.TPJavaBackend.exceptions.ColectivoAsignadoException;
 import francoceschan.TPJavaBackend.model.Colectivo;
 import francoceschan.TPJavaBackend.service.colectivo.ColectivoService;
 import lombok.RequiredArgsConstructor;
@@ -40,8 +41,7 @@ public class ColectivoControllerImpl implements ColectivoController  {
     @Override
     @DeleteMapping("deleteById/{patente}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteById(@PathVariable("patente") String patente)  throws RuntimeException
-    {
+    public void deleteById(@PathVariable("patente") String patente) throws ColectivoAsignadoException {
         colectivoService.deleteById(patente);
     }
 

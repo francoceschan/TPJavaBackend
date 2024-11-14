@@ -2,6 +2,7 @@ package francoceschan.TPJavaBackend.service.colectivo;
 
 import francoceschan.TPJavaBackend.dao.ColectivoDao;
 import francoceschan.TPJavaBackend.dao.ViajeDao;
+import francoceschan.TPJavaBackend.exceptions.ColectivoAsignadoException;
 import francoceschan.TPJavaBackend.model.Colectivo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -34,11 +35,11 @@ public class ColectivoServiceImpl implements ColectivoService{
 
     @Override
     @Transactional
-    public void deleteById(String patente) throws RuntimeException {
+    public void deleteById(String patente) throws ColectivoAsignadoException {
 
         // Verifico si hay viajes asociados
         if (viajeDao.countViajeByColectivo_Patente(patente) > 0) {
-            throw new RuntimeException("El colectivo no se puede eliminar porque está asignado a uno o más viajes");
+            throw new ColectivoAsignadoException("El colectivo no se puede eliminar porque está asignado a uno o más viajes");
         }
 
         colectivoDao.deleteByPatente(patente);

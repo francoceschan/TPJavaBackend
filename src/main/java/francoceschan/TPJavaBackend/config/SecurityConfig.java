@@ -77,6 +77,12 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.GET, "/colectivo/**").hasAnyRole("ADMINISTRATIVO");
                     http.requestMatchers(HttpMethod.DELETE, "/colectivo/**").hasAnyRole("ADMINISTRATIVO");
 
+                    // BOLETO
+                    http.requestMatchers(HttpMethod.POST, "/boleto/**").hasAnyRole("PASAJERO");
+
+                    // PASAJERO
+                    http.requestMatchers(HttpMethod.GET, "/pasajero/**").hasAnyRole("PASAJERO");
+
 
                     http.requestMatchers(HttpMethod.GET, "/colectivo/getPermiso").hasAnyRole("ADMINISTRATIVO", "DEVELOPER");
                     //http.requestMatchers(HttpMethod.GET, "/colectivo/guardar").hasAuthority("CREATE");

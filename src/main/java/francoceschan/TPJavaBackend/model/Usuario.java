@@ -1,5 +1,6 @@
 package francoceschan.TPJavaBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -21,8 +22,10 @@ public abstract class Usuario {
 
     private String apellido;
 
+    @Column(unique = true)
     private String mail;
 
+    @JsonIgnore // Excluye este campo de la serialización JSON
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
