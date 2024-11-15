@@ -63,7 +63,7 @@ public class ViajeControllerImpl implements ViajeController{
 
     @Override
     @DeleteMapping("deleteById/{idViaje}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable("idViaje") Long idViaje){
         viajeService.deleteById(idViaje);
     }
