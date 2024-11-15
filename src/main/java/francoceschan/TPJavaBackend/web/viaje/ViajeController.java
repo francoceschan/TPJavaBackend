@@ -2,6 +2,7 @@ package francoceschan.TPJavaBackend.web.viaje;
 
 import francoceschan.TPJavaBackend.model.Viaje;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -13,7 +14,12 @@ public interface ViajeController {
 
     List<Viaje> getAll();
 
-    List<Viaje> busqueda(Optional<Float> precioMinimo, Optional<Float> precioMaximo, Optional<Long> ciudadOrigenId, Optional<Long> ciudadDestinoId);
+    List<Viaje> busqueda(Optional<Float> precioMinimo,
+                         Optional<Float> precioMaximo,
+                         Optional<Long> ciudadOrigenId,
+                         Optional<Long> ciudadDestinoId,
+                         Optional<String> fechaInicio,
+                         Optional<String> fechaFin);
 
     List<Viaje> getViajesDisponibles();
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +45,12 @@ public class ViajeServiceImpl implements ViajeService {
     }
 
     @Override
-    public List<Viaje> buscarViajes(Optional<Float> precioMinimo, Optional<Float> precioMaximo, Optional<Long> ciudadOrigenId, Optional<Long> ciudadDestinoId) {
+    public List<Viaje> buscarViajes(Optional<Float> precioMinimo,
+                                    Optional<Float> precioMaximo,
+                                    Optional<Long> ciudadOrigenId,
+                                    Optional<Long> ciudadDestinoId,
+                                    Optional<String> fechaInicio,
+                                    Optional<String> fechaFin) {
         return viajeDao.findAll((Specification<Viaje>) (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
@@ -52,6 +58,17 @@ public class ViajeServiceImpl implements ViajeService {
             precioMaximo.ifPresent(max -> predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("precio"), max)));
             ciudadOrigenId.ifPresent(origenId -> predicates.add(criteriaBuilder.equal(root.get("ciudadOrigen").get("id"), origenId)));
             ciudadDestinoId.ifPresent(destinoId -> predicates.add(criteriaBuilder.equal(root.get("ciudadDestino").get("id"), destinoId)));
+            if (fechaInicio.isPresent() && fechaFin.isPresent()) {
+                OffsetDateTime fechaInicioParsed = OffsetDateTime.parse(fechaInicio.get());
+                OffsetDateTime fechaFinParsed = OffsetDateTime.parse(fechaFin.get());
+                predicates.add(criteriaBuilder.between(root.get("fechaHoraInicio"), fechaInicioParsed, fechaFinParsed));
+            } else if (fechaInicio.isPresent()) {
+                OffsetDateTime fechaInicioParsed = OffsetDateTime.parse(fechaInicio.get());
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("fechaHoraInicio"), fechaInicioParsed));
+            } else if (fechaFin.isPresent()) {
+                OffsetDateTime fechaFinParsed = OffsetDateTime.parse(fechaFin.get());
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("fechaHoraFin"), fechaFinParsed));
+            }
 
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         });

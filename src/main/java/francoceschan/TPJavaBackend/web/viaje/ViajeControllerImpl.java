@@ -46,9 +46,11 @@ public class ViajeControllerImpl implements ViajeController{
             @RequestParam("preciominimo") Optional<Float> precioMinimo,
             @RequestParam("preciomaximo") Optional<Float> precioMaximo,
             @RequestParam("ciudadorigenid") Optional<Long> ciudadOrigenId,
-            @RequestParam("ciudaddestinoid") Optional<Long> ciudadDestinoId
+            @RequestParam("ciudaddestinoid") Optional<Long> ciudadDestinoId,
+            @RequestParam("fechainicio") Optional<String> fechaInicio,
+            @RequestParam("fechafin") Optional<String> fechaFin
     ) {
-        return viajeService.buscarViajes(precioMinimo, precioMaximo, ciudadOrigenId, ciudadDestinoId);
+        return viajeService.buscarViajes(precioMinimo, precioMaximo, ciudadOrigenId, ciudadDestinoId, fechaInicio, fechaFin);
     }
 
     @Override

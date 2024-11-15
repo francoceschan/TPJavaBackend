@@ -18,6 +18,11 @@ public interface ViajeService {
 
     void deleteById(Long idViaje);
 
-    List<Viaje> buscarViajes(Optional<Float> precioMinimo, Optional<Float> precioMaximo, Optional<Long> ciudadOrigenId, Optional<Long> ciudadDestinoId);
+    List<Viaje> buscarViajes(Optional<Float> precioMinimo,
+                             Optional<Float> precioMaximo,
+                             Optional<Long> ciudadOrigenId,
+                             Optional<Long> ciudadDestinoId,
+                             Optional<String> fechaInicio,
+                             Optional<String> fechaFin);
 
 }
