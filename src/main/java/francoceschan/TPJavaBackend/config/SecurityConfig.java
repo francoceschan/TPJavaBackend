@@ -79,15 +79,16 @@ public class SecurityConfig {
 
                     // BOLETO
                     http.requestMatchers(HttpMethod.POST, "/boleto/**").hasAnyRole("PASAJERO");
+                    http.requestMatchers(HttpMethod.GET, "/boleto/**").hasAnyRole("PASAJERO");
 
                     // PASAJERO
                     http.requestMatchers(HttpMethod.GET, "/pasajero/**").hasAnyRole("PASAJERO");
 
+                    // RESEÑA
+                    http.requestMatchers(HttpMethod.POST, "/resenia/**").hasAnyRole("PASAJERO");
+                    http.requestMatchers(HttpMethod.GET, "/resenia/findReseniaByViajeAndPasajero/**").hasAnyRole("PASAJERO");
+                    http.requestMatchers(HttpMethod.GET, "/resenia/findReseniasRandom").permitAll();
 
-                    http.requestMatchers(HttpMethod.GET, "/colectivo/getPermiso").hasAnyRole("ADMINISTRATIVO", "DEVELOPER");
-                    //http.requestMatchers(HttpMethod.GET, "/colectivo/guardar").hasAuthority("CREATE");
-
-                    //http.anyRequest().authenticated();
                 })
                 .addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
                 .build();

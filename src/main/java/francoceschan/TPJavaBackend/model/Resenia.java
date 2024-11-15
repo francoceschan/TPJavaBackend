@@ -15,4 +15,10 @@ public class Resenia {
     private String descripcion;
 
     private Integer puntaje;
+
+    @ManyToOne
+    private Viaje viaje;
+
+    @ManyToOne
+    private Pasajero pasajero;
 }

@@ -9,6 +9,8 @@ import francoceschan.TPJavaBackend.service.pasajero.PasajeroService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BoletoServiceImpl implements BoletoService {
@@ -35,6 +37,11 @@ public class BoletoServiceImpl implements BoletoService {
         boleto.setButaca(butaca);
 
         return boletoDao.save(boleto);
+    }
+
+    @Override
+    public List<Boleto> findBoletoByMail(String mail){
+        return boletoDao.findBoletoByPasajero_Mail(mail);
     }
 
 }
